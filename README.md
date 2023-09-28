@@ -6,14 +6,7 @@ Bir öğrenci notlarını işlemek için bir Python programı yazmanız gerekiyo
 
 Bir sözlük kullanarak 10 öğrencinin bilgilerini ve notlarını saklayın. Her öğrencinin adı, soyadı ve notları(Vize, Final ve Sozlu notu) olsun. Örneğin:
 
-ogrenciler = {
-
-'Ahmet Yılmaz': [85, 90, 78],
-
-'Mehmet Demir': [92, 88, 76],
-
-'Ayşe Kaya': [78, 89, 95]
-}
+![resim](https://github.com/werhereitacademy/week_2/assets/141542413/dc91b4b6-a51c-4f5f-80a3-854d505ce48a)
 
 1-Her öğrencinin not ortalamasını hesaplayın ve sözlüğe ekleyin.
 
