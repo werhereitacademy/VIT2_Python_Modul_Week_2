@@ -1,6 +1,6 @@
 # VIT2 Python-Module-Week2
 
-### Soru1: Öğrenci Notları İşleme
+###  Soru1: Öğrenci Notları İşleme
 
 Bir öğrenci notlarını işlemek için bir Python programı yazmanız gerekiyor. Programın aşağıdaki işlevleri yerine getirmesi gerekiyor:
 
