@@ -1,0 +1,18 @@
+# Bir öğrenci notlarını işlemek için bir Python programı yazmanız gerekiyor.
+# Programın aşağıdaki işlevleri yerine getirmesi gerekiyor:
+#
+# Bir sözlük kullanarak 10 öğrencinin bilgilerini ve notlarını saklayın.
+# Her öğrencinin adı, soyadı ve notları(Vize, Final ve Sozlu notu) olsun. Örneğin:
+#
+# 1-Her öğrencinin not ortalamasını hesaplayın ve sözlüğe ekleyin.
+
+ogrenciler = {'Ahmet Yilmaz': [85,90,78],
+              'Mehmet Demir': [92,88,76],
+              'Ayse Kaya':[78,89,95]  }
+
+for keys, values in ogrenciler.items():
+    ortalama= sum(values)//len(values)
+    ogrenciler[keys].append(ortalama)
+print(ogrenciler)
+
+
