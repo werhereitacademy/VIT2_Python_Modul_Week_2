@@ -15,4 +15,46 @@ for keys, values in ogrenciler.items():
     ogrenciler[keys].append(ortalama)
 print(ogrenciler)
 
+# 2-En yüksek not ortalamasına sahip öğrenciyi bulun ve ekrana yazdırın.
+
+
+ogrenciler = {'Ahmet Yilmaz': [85,90,78],
+              'Mehmet Demir': [92,88,76],
+              'Ayse Kaya':[78,89,95]  }
+
+for keys, values in ogrenciler.items():
+    ortalama= sum(values)//len(values)
+    ogrenciler[keys].append(ortalama)
+    
+print(ogrenciler)
+
+en_yuksek_not = max(ogrenciler.values(), key=lambda x: x[-1])
+print("En yüksek nota sahip öğrenci:",[keys for keys, values in ogrenciler.items() if values == en_yuksek_not])
+
+3-Her öğrencinin adını soyadından ayırarak ayrı bir tuple içinde saklayın ve bunları bir listeye ekleyin.
+
+ogrenciler = {'Ahmet Yilmaz': [85,90,78],
+              'Mehmet Demir': [92,88,76],
+              'Ayse Kaya':[78,89,95]  }
+
+ad_soyad_listesi = [(ogrenci.split()[0], ogrenci.split()[1]) for ogrenci in ogrenciler.keys()]
+
+print(ad_soyad_listesi)
+
+4-Adları alfabetik sıraya göre sıralayın ve sıralanmış listeyi ekrana yazdırın.
+
+ogrenciler = {'Ahmet Yilmaz': [85,90,78],
+              'Mehmet Demir': [92,88,76],
+              'Ayse Kaya':[78,89,95]  }
+
+ad_soyad_listesi = [(ogrenci.split()[0], ogrenci.split()[1]) for ogrenci in ogrenciler.keys()]
+
+print(ad_soyad_listesi)
+
+ad_soyad_listesi.sort(key=lambda x: x[0])
+
+print("Sıralanmış öğrenci listesi:", ad_soyad_listesi)
+
+
+
 
