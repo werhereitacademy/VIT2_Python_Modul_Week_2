@@ -55,6 +55,109 @@ ad_soyad_listesi.sort(key=lambda x: x[0])
 
 print("Sıralanmış öğrenci listesi:", ad_soyad_listesi)
 
+5- ogrenciler = {'Ahmet Yilmaz': [85,90,78],
+               'Mehmet Demir': [92,88,76],
+              'Ayse Kaya':[78,89,95]  }
+
+
+for keys, values in ogrenciler.items():
+      ortalama= sum(values)//len(values)
+      ogrenciler[keys].append(ortalama)
+    print(ogrenciler)
+
+not_70_alti = {ogrenci for ogrenci, notlar in ogrenciler.items() if notlar[3] < 70}
+    print("Not ortalaması 70'in altında olan öğrenciler:", not_70_alti)
+
+import json
+
+# Boş bir film koleksiyonu oluşturalım
+film_koleksiyonu = []
+
+# Kullanıcıdan film bilgilerini alan ve sözlük olarak saklayan fonksiyon
+def film_ekle():
+    film_adı = input("Film Adı: ")
+    yönetmen = input("Yönetmen: ")
+    yayın_yılı = input("Yayın Yılı: ")
+    tür = input("Tür: ")
+
+    film = {
+        "Film Adı": film_adı,
+        "Yönetmen": yönetmen,
+        "Yayın Yılı": yayın_yılı,
+        "Tür": tür
+    }
+
+    film_koleksiyonu.append(film)
+    print("Film koleksiyonunuza eklendi.")
+
+# Kullanıcının filmi düzenlemesine izin veren fonksiyon
+def film_düzenle(film_adı):
+    for film in film_koleksiyonu:
+        if film["Film Adı"] == film_adı:
+            film["Yönetmen"] = input("Yeni Yönetmen: ")
+            film["Yayın Yılı"] = input("Yeni Yayın Yılı: ")
+            film["Tür"] = input("Yeni Tür: ")
+            print("Film bilgileri güncellendi.")
+            return
+    print("Film bulunamadı.")
+
+# Kullanıcının filmi silebilmesine izin veren fonksiyon
+def film_sil(film_adı):
+    for film in film_koleksiyonu:
+        if film["Film Adı"] == film_adı:
+            film_koleksiyonu.remove(film)
+            print("Film silindi.")
+            return
+    print("Film bulunamadı.")
+
+# Kullanıcının koleksiyonunu görüntülemesine izin veren fonksiyon
+def koleksiyonu_görüntüle():
+    for film in film_koleksiyonu:
+        print(film)
+
+# Film verilerini bir dosyaya yazan fonksiyon
+def veriyi_kaydet():
+    with open("film_koleksiyonu.json", "w") as dosya:
+        json.dump(film_koleksiyonu, dosya)
+    print("Veri dosyaya kaydedildi.")
+
+# Film verilerini bir dosyadan okuyan fonksiyon
+def veriyi_yükle():
+    global film_koleksiyonu
+    try:
+        with open("film_koleksiyonu.json", "r") as dosya:
+            film_koleksiyonu = json.load(dosya)
+        print("Veri dosyadan yüklendi.")
+    except FileNotFoundError:
+        print("Veri dosyası bulunamadı.")
+
+# Ana program döngüsü
+veriyi_yükle()
+
+while True:
+    print("1. Film Ekle")
+    print("2. Film Düzenle")
+    print("3. Film Sil")
+    print("4. Koleksiyonu Görüntüle")
+    print("5. Çıkış")
+    
+    seçim = input("Lütfen bir seçenek girin: ")
+
+    if seçim == "1":
+        film_ekle()
+    elif seçim == "2":
+        film_adı = input("Düzenlemek istediğiniz film adını girin: ")
+        film_düzenle(film_adı)
+    elif seçim == "3":
+        film_adı = input("Silmek istediğiniz film adını girin: ")
+        film_sil(film_adı)
+    elif seçim == "4":
+        koleksiyonu_görüntüle()
+    elif seçim == "5":
+        veriyi_kaydet()
+        break
+    else:
+        print("Geçersiz seçenek. Lütfen tekrar deneyin.")
 
 
 
