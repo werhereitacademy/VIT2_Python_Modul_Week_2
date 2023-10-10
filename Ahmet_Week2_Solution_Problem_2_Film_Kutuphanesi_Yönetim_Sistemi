@@ -1,0 +1,102 @@
+# 1-Kullanıcıdan film adı, yönetmen, yayın yılı ve tür gibi bilgileri alarak bir film verisi oluşturun ve
+# bunu bir sözlükte saklayın.
+#2-Kullanıcıya bir filmi düzenleme veya silme seçeneği sunun.(Bunun icin filme ait hangi veriyi degistirmek istiyorlarsa
+# ona uygun bir fonksiyon yazilmasi gerekir.)
+# 3- Kullanıcının koleksiyonunu görüntülemesine izin verin. Tüm filmleri listeleyin veya tür veya yayın yılı gibi
+# kriterlere göre filtreleyin.
+# 4-Film verilerini bir dosyada saklayın ve programı başlattığınızda bu veriyi geri yükleyin.
+
+
+import json
+import time
+
+film_list = {}
+
+def veriyi_yukle():
+    try:
+        with open("film_kutuphanesi.json", "r") as dosya:
+            film_list.update(json.load(dosya))
+    except FileNotFoundError:
+        pass
+
+
+def veriyi_kaydet():
+    with open("film_kutuphanesi.json", "w") as dosya:
+        json.dump(film_list, dosya)
+
+
+def film_ekleme():
+    flm = input("Film Adı giriniz:")
+    yonetmen_ad = input("Yönetmen Adı Giriniz:")
+    yayin_yili = input("Yayin Yili Giriniz:")
+    film_turu = input("Film Türünü Giriniz:")
+
+    film = {
+        'Film Adi': flm,
+        'Yönetmen Adi': yonetmen_ad,
+        'Yayin Yili': yayin_yili,
+        'Film Türü': film_turu
+    }
+
+    film_list[flm] = film
+    print(f"{flm} Adlı Film ve Bilgileri Listeye Eklendi.")
+
+def film_guncelleme(guncellenecek_film):
+    if guncellenecek_film in film_list:
+        yeni_flm = input("Yeni Film Adını Giriniz:")
+        yeni_yonetmen_ad = input("Yeni Yönetmen Adını Giriniz:")
+        yeni_yayin_yili = input("Yeni Yayın Yılını Giriniz:")
+        yeni_film_turu = input("Yeni Film Türünü Giriniz:")
+        film_list[guncellenecek_film] = yeni_flm,yeni_yonetmen_ad,yeni_yayin_yili,yeni_film_turu
+        print(f"{guncellenecek_film} Adlı Film Güncellendi.")
+    else:
+        print(f"{guncellenecek_film} ismine ait herhangi bir kayıt bulunamamıştır.")
+
+
+def film_sil(silinecek_film):
+    if silinecek_film in film_list:
+        print(f"{silinecek_film} Adlı Film Listeden Siliniyor!")
+        del film_list[silinecek_film]
+        time.sleep(1)
+        print(f"{silinecek_film} Adlı Film Listeden Silinmiştir.")
+    else:
+        print(f"{silinecek_film} Adlı Film Bulunamamıştır.")
+
+def film_listele():
+    print("Film Listesi:")
+    for flm, bilgiler in film_list.items():
+        print(f"Film Adi: {bilgiler['Film Adi']}, Yönetmen Adi: {bilgiler['Yönetmen Adi']}, Yayin Yili: {bilgiler['Yayin Yili']}, Film Türü {bilgiler['Film Türü']}")
+
+
+
+while True:
+    print("\nFilm Kütüphanesi Yönetim Sistemi")
+    print("--------------------------------")
+    print("""1- Yeni Film Ekleme\n2- Film Bilgileri Güncelleme\n3- Film Kaydı Silme\n4- Film Kaydı Listeleme\n5- Çıkış""")
+    print("----------------------------------")
+
+    kayit = input("Yapmak İstediğiniz İşlemi Seçiniz:")
+
+    if kayit == '1':
+        film_ekleme()
+        veriyi_kaydet()
+
+    elif kayit == '2':
+        guncellenecek_film = input("Değiştirmek istediğiniz Film İsmini Giriniz:")
+        film_guncelleme(guncellenecek_film)
+        veriyi_kaydet()
+
+
+    elif kayit == '3':
+        silinecek_film = input("Silmek istediğiniz filmi giriniz:")
+        film_sil(silinecek_film)
+        veriyi_kaydet()
+
+    elif kayit == '4':
+        film_listele()
+
+    elif kayit == '5':
+        print("Film Kütüphanesi Yönetim Sisteminin Çalışması Sonlandırıldı.")
+        break
+    else:
+        print("Geçersiz bir seçim yaptınız. Lütfen tekrar deneyiniz.")
