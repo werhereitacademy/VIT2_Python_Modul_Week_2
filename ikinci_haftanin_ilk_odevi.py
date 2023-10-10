@@ -57,3 +57,97 @@ for ogrenci in ogrenciler:
 print("Not ortalaması 70'in altında olan öğrenciler:")
 for ad, soyad, not_ortalamasi in zayif_ogrenciler:
     print(f"{ad} {soyad}, Not Ortalaması: {not_ortalamasi}")
+
+
+
+
+
+
+#2. Odev
+
+
+import json
+
+film_koleksiyonu = []
+
+def film_ekle():
+    ad = input("Filmin adını giriniz: ")
+    yonetmen = input("Yönetmen adını giriniz: ")
+    yil = input("Yılı giriniz: ")
+    tur = input("Türü giriniz: ")
+    film = {
+        "Ad": ad,
+        "Yonetmen": yonetmen,
+        "Yil": yil,  # Yılı ekledim
+        "Tur": tur
+    }
+    film_koleksiyonu.append(film)
+    print(f"{ad} filmi koleksiyona eklendi")
+
+def film_duzenle(film_adi):
+    for film in film_koleksiyonu:
+        if film["Ad"] == film_adi:
+            yeni_ad = input("Yeni film adını giriniz: ")
+            yeni_yonetmen = input("Yeni yönetmeni giriniz: ")
+            yeni_yil = input("Yeni yılı giriniz: ")
+            yeni_tur = input("Yeni türü giriniz: ")
+
+            film["Ad"] = yeni_ad
+            film["Yonetmen"] = yeni_yonetmen
+            film["Yil"] = yeni_yil
+            film["Tur"] = yeni_tur
+            print(f"{film_adi} düzenlenmiştir")
+
+def film_sil(film_adi):
+    for film in film_koleksiyonu:
+        if film["Ad"] == film_adi:
+            film_koleksiyonu.remove(film)
+            print(f"{film_adi} silinmiştir")
+
+def koleksiyonu_goruntule():
+    for film in film_koleksiyonu:
+        print(f"Ad: {film['Ad']}, Yönetmen: {film['Yonetmen']}, Yıl: {film['Yil']}, Tür: {film['Tur']}")
+
+def veriyi_dosyaya_kaydet():
+    with open("film_koleksiyonu.json", "w") as dosya:
+        json.dump(film_koleksiyonu, dosya)
+
+def veriyi_dosyadan_yukle():
+    try:
+        with open("film_koleksiyonu.json", "r") as dosya:
+            return json.load(dosya)
+    except FileNotFoundError:
+        return []
+
+# Program başladığında önce veriyi yükle
+film_koleksiyonu = veriyi_dosyadan_yukle()
+
+while True:
+    print("\nFilm koleksiyonu yönetimi")
+    print("1. Film ekle")
+    print("2. Film düzenle")  # Seçenek numarasını düzelttim
+    print("3. Film sil")  # Seçenek numarasını düzelttim
+    print("4. Koleksiyonu görüntüle")
+    print("5. Çıkış")
+
+    secim = input("Yapmak istediğiniz işlemin numarasını girin: ")
+
+    if secim == "1":
+        film_ekle()
+        veriyi_dosyaya_kaydet()
+    elif secim == "2":
+        film_adi = input("Düzenlemek istediğiniz film adını girin: ")
+        film_duzenle(film_adi)
+        veriyi_dosyaya_kaydet()
+    elif secim == "3":
+        film_adi = input("Silmek istediğiniz film adını girin: ")
+        film_sil(film_adi)
+        veriyi_dosyaya_kaydet()
+    elif secim == "4":
+        koleksiyonu_goruntule()
+    elif secim == "5":
+        print("Çıkış yapılıyor")
+        veriyi_dosyaya_kaydet()
+        break
+    else:
+        print("Geçersiz bir seçim yaptınız")
