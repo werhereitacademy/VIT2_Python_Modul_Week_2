@@ -1,0 +1,244 @@
+#Soru 1' in cevabı
+ogrenciler={
+    'Ali Aydin': [50,60,70],
+    'Burcu Bayrak': [65,60,70],
+    'Hande Hayat': [30,60,70],
+    'Didem Deniz': [75,60,70],
+    'Jale Kerim': [55,60,70],
+    'Emel Engin': [80,60,70],
+    'Faruk Fakir': [85,60,70],
+    'Gizem Güzel': [20,60,70],
+    'Ilkim Isik': [35,60,70],
+    'Cem Cakir': [70,60,70],
+    
+}
+#1. Her öğrencinin not ortalamasını hesaplayın ve sözlüğe ekleyin.
+ort=0
+toplam=0
+for i in ogrenciler.values():
+    for j in i:
+        toplam+=j
+    ort=toplam/3
+    i.append(ort)
+    ort=0
+    toplam=0
+print(ogrenciler)
+
+#2. En yüksek not ortalamasına sahip öğrenciyi bulun ve ekrana yazdırın.
+ort_list=[]
+for i in ogrenciler.values():
+    ort_list.append(i[3])
+print(ort_list)
+ort_list.sort()
+max_ort=ort_list[-1]
+print(max_ort)
+
+#3.Her öğrencinin adını soyadından ayırarak ayrı bir tuple içinde saklayın ve bunları bir listeye ekleyin.
+ad_soyad=[]
+for i in ogrenciler.keys():
+    ad_soyad_tuple=tuple(i.split())
+    ad_soyad.append(ad_soyad_tuple)
+print(ad_soyad)
+
+#4. Adları alfabetik sıraya göre sıralayın ve sıralanmış listeyi ekrana yazdırın.
+ad_soyad.sort()
+print(ad_soyad)
+
+# 5-Not ortalaması 70'in altında olan öğrencileri bir küme (set) içinde saklayın.
+kume=set()
+for i in ogrenciler.values():
+    if i[3]<70:
+        kume.add(i[3])
+print(kume)
+
+#Soru 2' nin cevabı
+import json
+
+# Veriyi yükleme işlevi
+def veriyi_yukle():
+    try:
+        with open("film_kutuphanesi.json", "r") as dosya:
+            film_koleksiyonu.update(json.load(dosya))
+    except FileNotFoundError:
+        pass
+
+# Veriyi kaydetme işlevi
+def veriyi_kaydet():
+    with open("film_kutuphanesi.json", "w") as dosya:
+        json.dump(film_koleksiyonu, dosya)
+
+film_koleksiyonu = {}
+
+# Yeni bir film ekleme fonksiyonu
+def film_ekle():
+    film_adi = input("\nFilm adini girin: ")
+    yonetmen = input("Yönetmeni girin: ")
+    yayin_yili = input("Yayin yilini girin: ")
+    tur = input("Film türünü girin: ")
+
+    film = {
+        'Film Adi': film_adi,
+        'Yönetmen': yonetmen,
+        'Yayin Yili': yayin_yili,
+        'Tür': tur
+    }
+
+    film_koleksiyonu[film_adi] = film
+    print(f"{film_adi} filmi koleksiyona eklendi.")
+
+# Bir filmi düzenleme fonksiyonu
+def film_duzenle(film_adi):
+    if film_adi in film_koleksiyonu:
+        print(f"{film_adi} filmi düzenleniyor...")
+        yeni_veriler = {}
+        yeni_veriler['Film Adi'] = input(f"Yeni film adi ({film_koleksiyonu[film_adi]['Film Adi']}): ")
+        yeni_veriler['Yönetmen'] = input(f"Yeni yönetmen ({film_koleksiyonu[film_adi]['Yönetmen']}): ")
+        yeni_veriler['Yayin Yili'] = input(f"Yeni yayin yili ({film_koleksiyonu[film_adi]['Yayin Yili']}): ")
+        yeni_veriler['Tür'] = input(f"Yeni tür ({film_koleksiyonu[film_adi]['Tür']}): ")
+
+        film_koleksiyonu[film_adi] = yeni_veriler
+        print(f"{film_adi} filmi güncellendi.")
+    else:
+        print(f"{film_adi} filmi koleksiyonda bulunamadi.")
+
+# Bir filmi silme fonksiyonu
+def film_sil(film_adi):
+    if film_adi in film_koleksiyonu:
+        del film_koleksiyonu[film_adi]
+        print(f"{film_adi} filmi koleksiyondan silindi.")
+    else:
+        print(f"{film_adi} filmi koleksiyonda bulunamadi.")
+
+# Koleksiyonu görüntüleme fonksiyonu
+def koleksiyonu_goruntule():
+    print("\nFilm Koleksiyonu:\n")
+    for film_adi, veriler in film_koleksiyonu.items():
+        print(f"Film Adi: {veriler['Film Adi']}")
+        print(f"Yönetmen: {veriler['Yönetmen']}")
+        print(f"Yayin Yili: {veriler['Yayin Yili']}")
+        print(f"Tür: {veriler['Tür']}")
+        print("-" * 30)
+
+veriyi_yukle()
+
+while(True):
+    print("\n1. Yeni Film Ekle")
+    print("2. Filmleri Listele")
+    print("3. Film Düzenle")
+    print("4. Film Sil")
+    print("5. Exit")
+    secim=input("\nBir secim yapiniz : ")
+    if secim=='1': #1-Kullanıcıdan film adı, yönetmen, yayın yılı ve tür gibi bilgileri alarak bir film verisi oluşturun ve bunu bir sözlükte saklayın.
+          film_ekle()
+          veriyi_kaydet()
+    elif secim=='2':
+        koleksiyonu_goruntule()
+    elif secim == '3':
+        duzenlenecek_film=input('\nDüzenlenecek filmin adini girin: ')
+        film_duzenle(duzenlenecek_film)   
+        veriyi_kaydet()     
+    elif secim == '4':
+        silinecek_film= input("\nSilmek istediğiniz film adini girin: ")
+        film_sil(silinecek_film)
+        veriyi_kaydet()
+    elif secim == '5':
+        print("Programdan çikiliyor...")
+        break
+    else:
+        print("Geçersiz seçenek! Lütfen tekrar deneyin.")
+
+#Soru 3' ün cevabı
+musteriler = {}
+# Yeni müşteri eklemek
+def yeni_musteri_ekle():
+    musteri_id = input("Müşteri Kimliği (ID) girin: ")
+    ad = input("Adinizi girin: ")
+    soyad = input("Soyadinizi girin: ")
+    email = input("E-posta adresinizi girin: ")
+    telefon = input("Telefon numaranizi girin: ")
+
+    musteri = {
+        'Ad': ad,
+        'Soyad': soyad,
+        'E-posta': email,
+        'Telefon': telefon
+    }
+
+    musteriler[musteri_id] = musteri
+    print(f"{ad} {soyad} müşterisi eklenmiştir.")
+
+# Müşteri bilgilerini güncellemek
+def musteri_guncelle():
+    musteri_id = input("Güncellemek istediğiniz müşterinin kimliğini (ID) girin: ")
+
+    if musteri_id in musteriler:
+        print(f"{musteri_id} müşterisinin mevcut bilgileri:")
+        mevcut_musteri = musteriler[musteri_id]
+        for anahtar, deger in mevcut_musteri.items():
+            print(f"{anahtar}: {deger}")
+
+        ad = input("Yeni adi girin (değiştirmek istemiyorsaniz boş birakin): ")
+        soyad = input("Yeni soyadi girin (değiştirmek istemiyorsaniz boş birakin): ")
+        email = input("Yeni e-postayi girin (değiştirmek istemiyorsaniz boş birakin): ")
+        telefon = input("Yeni telefon numarasini girin (değiştirmek istemiyorsaniz boş birakin): ")
+
+        if ad:
+            mevcut_musteri['Ad'] = ad
+        if soyad:
+            mevcut_musteri['Soyad'] = soyad
+        if email:
+            mevcut_musteri['E-posta'] = email
+        if telefon:
+            mevcut_musteri['Telefon'] = telefon
+
+        musteriler[musteri_id] = mevcut_musteri
+        print(f"{musteri_id} müşteri bilgileri güncellendi.")
+    else:
+        print(f"{musteri_id} müşterisi bulunamadi.")
+
+# Müşteri silmek
+def musteri_sil():
+    musteri_id = input("Silmek istediğiniz müşterinin kimliğini (ID) girin: ")
+
+    if musteri_id in musteriler:
+        silinen_musteri = musteriler.pop(musteri_id)
+        print(f"{silinen_musteri['Ad']} {silinen_musteri['Soyad']} müşterisi silinmiştir.")
+    else:
+        print(f"{musteri_id} müşterisi bulunamadi.")
+
+# Tüm müşterileri listeleme
+def musterileri_listele():
+    if len(musteriler) == 0:
+        print("Henüz müşteri kaydi yok.")
+    else:
+        print("\nTüm Müşteriler:")
+        for musteri_id, musteri in musteriler.items():
+            print(f"Müşteri Kimliği (ID): {musteri_id}")
+            for anahtar, deger in musteri.items():
+                print(f"{anahtar}: {deger}")
+            print("-" * 30)
+
+# Ana program döngüsü
+while True:
+    print("\nMüşteri Yönetim Sistemi")
+    print("1. Yeni Müşteri Ekle")
+    print("2. Müşteri Bilgilerini Güncelle")
+    print("3. Müşteri Sil")
+    print("4. Tüm Müşterileri Listele")
+    print("5. Çikiş")
+
+    secim = input("Yapmak istediğiniz işlemi seçin: ")
+
+    if secim == '1':
+        yeni_musteri_ekle()
+    elif secim == '2':
+        musteri_guncelle()
+    elif secim == '3':
+        musteri_sil()
+    elif secim == '4':
+        musterileri_listele()
+    elif secim == '5':
+        print("Programdan çikiliyor...")
+        break
+    else:
+        print("Geçersiz seçenek! Lütfen tekrar deneyin.")
