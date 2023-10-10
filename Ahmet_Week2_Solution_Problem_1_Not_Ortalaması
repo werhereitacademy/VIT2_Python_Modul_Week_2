@@ -1,0 +1,44 @@
+# Bir sözlük kullanarak 10 öğrencinin bilgilerini ve notlarını saklayın. Her öğrencinin adı, soyadı ve notları(Vize, Final ve Sozlu notu) olsun. 
+
+
+kisiler = ['Ahmet Yılmaz','Mehmet Demir','Ayşe Kaya','Fatma Betül','Talha Turan','Uğur Mum','Ali Tarhan','Süleyman Demirci','Tülay Gezer','Tuna Kiriş']
+sinavlar = [[85,90,78],[92,88,76],[78,89,95],[88,55,80],[75,70,80],[80,85,75],[55,20,70],[80,58,90],[90,85,80],[10,50,60]]
+#print(person)
+ogrenciler = dict(zip(kisiler,sinavlar))
+print(ogrenciler)
+
+#Her öğrencinin not ortalamasını hesaplayın ve sözlüğe ekleyin.
+for keys, value in ogrenciler.items():
+    ortalama = sum(value) // len(value)
+    ogrenciler[keys].append(ortalama)
+print(ogrenciler)
+
+
+# En yüksek not ortalamasına sahip öğrenciyi bulun ve ekrana yazdırın.
+en_yks_ort_og = max(ogrenciler,key=lambda x: ogrenciler[x][-1])
+print(f"En Yüksek Not Ortlamasına sahip öğrenci: {en_yks_ort_og}.")
+
+#Her öğrencinin adını soyadından ayırarak ayrı bir tuple içinde saklayın ve bunları bir listeye ekleyin.
+ayri = list()
+for keys in ogrenciler.keys():
+    isim,soy_isim = keys.split()
+    ayri.append((isim,soy_isim))
+print(ayri)
+
+
+
+#Adları alfabetik sıraya göre sıralayın ve sıralanmış listeyi ekrana yazdırın.
+ayri.sort()
+print(ayri)
+
+#Not ortalaması 70'in altında olan öğrencileri bir küme (set) içinde saklayın.
+s_e_t = set()
+for keys,value in ogrenciler.items():
+    vize, final, sozlu, not_ortalamasi = value
+    if not_ortalamasi < 70:
+        s_e_t.add(keys)
+print(s_e_t)
+print(type(s_e_t))
+
+
+
