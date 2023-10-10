@@ -1,0 +1,121 @@
+#müşteri yönetim sistemi - müşteri bilgilerini saklama, yeni müşteri ekleyebilme,
+# müşteri bilgilerini güncelleyebilme, müşteri silme ve müşteri listesini görüntüleme
+#
+# 1-Müşteri bilgilerini saklamak için bir sözlük yapısı kullanın. Her müşteri için bir benzersiz müşteri
+# kimliği (ID) atayın ve müşteri bilgilerini bu kimlikle ilişkilendirin. Her müşteri için ad, soyad, e-posta,
+# telefon gibi bilgileri içeren bir sözlük kullanabilirsiniz.
+# 2- Yeni müşteri eklemek - Müşteri bilgilerini güncellemek - Müşteri silmek - Tüm müşterileri listelemek - Çıkış yapmak
+# 3-Kullanıcının seçimine göre ilgili işlemi gerçekleştirin. Örneğin, yeni müşteri eklerken kullanıcıdan
+# gerekli bilgileri alın ve sözlüğe yeni bir müşteri ekleyin.
+#
+# 4-Müşteri bilgilerini güncellerken, müşteri kimliğini kullanarak mevcut bilgileri görüntüleyin ve
+# güncellenmiş bilgileri kaydedin.
+#
+# 5-Müşteri silme işleminde kullanıcıdan müşteri kimliğini alın ve bu müşteriyi sözlükten silin.
+#
+# 6-Tüm müşterileri listeleme işleminde, mevcut müşterilerin listesini görüntüleyin.
+#
+# 7-Kullanıcı çıkış yapana kadar işlemleri tekrarlayın.
+
+
+
+musteri_sistemi = {}
+
+def yeni_musteri_ekle():
+    musteri_id = input("Müşteri ID Bilgisini Giriniz:")
+    ad = input("Müşteri Adını Giriniz:")
+    soyad = input("Müşteri Soyadını Giriniz:")
+    eposta = input("Müşteri E-mail Adresini Giriniz:")
+    telefon = input("Müşteri Telefonunu Giriniz:")
+
+    musteri_sistemi[musteri_id] = {
+        'Ad': ad,
+        'Soyad': soyad,
+        'E-posta':eposta,
+        'Telefon':telefon
+    }
+    print(f"{musteri_id} kimlik numarasıyla {ad.capitalize()} {soyad.capitalize()} isimli Yeni Müşteri Eklendi.")
+
+
+def musteri_guncelle():
+    musteri_id = input("Müşteri ID Numarasını Giriniz:")
+    if musteri_id in musteri_sistemi:
+        print(f"{musteri_id} ID Numaralı Müşterinin Bilgileri:")
+        print(f"{musteri_id} numaralı {musteri_sistemi[musteri_id]}")
+
+        ad = input("Yeni  Müşteri Adını Giriniz (Aynı Kalması için 'enter'a basınız):")
+        soyad = input("Yeni  Müşteri Soyadını Giriniz (Aynı Kalması için 'enter'a basınız):")
+        eposta = input("Yeni  Eposta Adresini Giriniz (Aynı Kalması için 'enter'a basınız):")
+        telefon = input("Yeni  Telefon numarasını Giriniz (Aynı Kalması için 'enter'a basınız):")
+
+        if ad:
+            musteri_sistemi[musteri_id]['Ad'] = ad
+        if soyad:
+            musteri_sistemi[musteri_id]['Soyad'] = soyad
+        if eposta:
+            musteri_sistemi[musteri_id]['E-posta'] = eposta
+        if telefon:
+            musteri_sistemi[musteri_id]['Telefon'] = telefon
+
+        print(f"{musteri_id} Numaralı Kişinin Bigileri Güncellendi.")
+        print("------------------------------")
+        print("Güncellenen Kişinin Bilgileri:")
+        print(f"Kimlik:{musteri_id}, Ad:{musteri_sistemi[musteri_id]['Ad']}, Soyad:{musteri_sistemi[musteri_id]['Soyad']}, E-posta:{musteri_sistemi[musteri_id]['E-posta']}, Telefon:{musteri_sistemi[musteri_id]['Telefon']}")
+
+
+def musteri_sil():
+    musteri_id = input("Silmek İstediğiniz Müşterinin ID Numarasını Giriniz:")
+    if musteri_id in musteri_sistemi:
+        print(f"{musteri_id} Numaralı Kişi Siliniyor.")
+        silinen = musteri_id
+        del musteri_sistemi[musteri_id]
+        print(f"{silinen} Numaralı Kişi Silindi.")
+    else:
+        print(f"{musteri_id} Numaralı kişi kaydı Bulunamadı!")
+
+
+def genel_musteri_listele():
+    print("Müşteri Bilgileri:")
+    for musteri_id,icerikler in musteri_sistemi.items():
+        print(f"{musteri_id}, Ad:{icerikler['Ad']}, Soyad:{icerikler['Soyad']}, E-posta:{icerikler['E-posta']}, Telefon {icerikler['Telefon']}")
+
+
+def mevcut_musteri_goruntule():
+    musteri_id = input("Görüntülemek istediğiniz Müşterinin ID'sini Giriniz:")
+    if musteri_id in musteri_sistemi:
+        kisi = musteri_sistemi[musteri_id]
+        print("Görüntülenecek Müşteri Bilgileri:")
+        print(f"ID:{musteri_id}, Ad:{kisi['Ad']}, Soyad:{kisi['Soyad']}, E-posta:{kisi['E-posta']}, Telefon {kisi['Telefon']}")
+    else:
+        print(f"{musteri_id} ID numaralı Müşteri Bulunamadı!")
+
+
+while True:
+    print("\nMüşteri Yönetim Sistemi")
+    print("-----------------------")
+    print("1. Yeni Müşteri Kaydı Eklemek")
+    print("2. Kayıtlı Müşteri Bilgilerini Güncellemek")
+    print("3. Müşteri Kaydını Silmek")
+    print("4. Müşterilerin Kayıtlarını Listelemek")
+    print("5. Belirlenen Bir Müşteri Kaydını Görüntülemek")
+    print("6. Çıkış")
+    print("--------------------------------")
+
+    secim = input("Seçiminizi Yapınız:")
+
+    if secim == '1':
+        yeni_musteri_ekle()
+    elif secim == '2':
+        musteri_guncelle()
+    elif secim == '3':
+        musteri_sil()
+    elif secim == '4':
+        genel_musteri_listele()
+    elif secim == '5':
+        mevcut_musteri_goruntule()
+    elif secim == '6':
+        print("Müşteri Yönetim Sisteminden Çıkıldı!")
+        break
+    else:
+        print("Geçersiz seçim yaptınız. Lütfen Tekrar Deneyiniz:")
+
