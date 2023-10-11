@@ -1,0 +1,47 @@
+soru1
+#Öğrenci not hesaplama programı
+#1-Her öğrencinin not ortalamasını hesaplayın ve sözlüğe ekleyin.
+students={
+    "Ahmet Yılmaz":[85,90,78],
+    "Mehmet Demir":[50,60,55],
+    "Ayşe Kaya":[78,90,95],
+    "Ali Can":[80,86,96],
+    "Emine Ersoy":[40,50,60],
+    "Hasan Yücel":[92,96,100],
+    "Ali Aslan":[78,84,90],
+    "Hande Ata":[50,50,50],
+    "Can Yalçın":[80,90,90],
+    "Öykü Can":[90,100,100]
+}
+for key,value in students.items():
+    not_toplam=0
+    not_sayısı=0
+    for i in value:
+        not_toplam+=i
+        not_sayısı+=1
+        ortalama=not_toplam/not_sayısı
+    students[key].append(ortalama)
+print(students)
+
+#2-En yüksek not ortalamasına sahip öğrenciyi bulun ve ekrana yazdırın.
+en_yuksek_ortalama_ogrenci = max(students, key=lambda k: students[k][-1])
+print(f"En yüksek not ortalamasina sahip öğrenci: {en_yuksek_ortalama_ogrenci}, Ortalama: {students[en_yuksek_ortalama_ogrenci][-1]}")
+
+#3-Her öğrencinin adını soyadından ayırarak ayrı bir tuple içinde saklayın ve bunları bir listeye ekleyin.
+ad_soyad_list=[]
+for key in students.keys():
+    ad_soyad_tuple=tuple(key.split())
+    print(ad_soyad_tuple)
+    ad_soyad_list.append(ad_soyad_tuple)
+print(ad_soyad_list)
+
+#4-Adları alfabetik sıraya göre sıralayın ve sıralanmış listeyi ekrana yazdırın.
+ad_soyad_list.sort()
+print(ad_soyad_list)
+
+#5-Not ortalaması 70'in altında olan öğrencileri bir küme (set) içinde saklayın.
+notu_70altı_öğrenciler= {key for key in students if students[key][-1] < 70}
+print("Not ortalamasi 70'in altinda olan öğrenciler:")
+for key in notu_70altı_öğrenciler :
+    print(key)
+
