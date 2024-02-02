@@ -1,11 +1,10 @@
-'''Soru1: Öğrenci Notları İşleme
-Bir öğrenci notlarını işlemek için bir Python programı yazmanız gerekiyor. Programın aşağıdaki işlevleri yerine getirmesi gerekiyor:
+'''Question1: Student Grades Processing
+You need to write a Python program to process student grades. The program should perform the following functions:
 
-Bir sözlük kullanarak 10 öğrencinin bilgilerini ve notlarını saklayın. Her öğrencinin adı, soyadı ve notları(Vize, Final ve Sozlu notu) olsun
+Use a dictionary to store the information and grades of 10 students. Each student should have a name, surname, and grades (Midterm, Final, and Oral grades).
 '''
 
-
-ogrenciler = {
+students = {
     'Aysima Coskun':  [90, 85, 75],
     'Suheyb Coskun':  [35, 60, 50],
     'Guluzar Coskun': [68, 88, 78],
@@ -18,54 +17,54 @@ ogrenciler = {
     'Duygu Seker': [69, 88, 78]
 }
 
-#1-Her öğrencinin not ortalamasını hesaplayın ve sözlüğe ekleyin.
+#1-Calculate the average grade for each student and add it to the dictionary.
 
-def ortalama_hesaplama(notlar):
-    return sum(notlar) /len(notlar)
+def calculate_average(grades):
+    return sum(grades) / len(grades)
 
-isimler = ogrenciler.keys()
+names = students.keys()
 
-for isim in isimler:
-    #hem notlari hem ortalamayi daha sonra kullanacagim icin ikisinide degiskenlere atadim.
+for name in names:
+    #I assigned both the grades and the average to variables for later use.
     
-    ogrenci_notlari = ogrenciler[isim]
-    ortalama = int(ortalama_hesaplama(ogrenci_notlari))
-    ogrenciler[isim] = {'ortalama': ortalama, 'notlar': ogrenci_notlari}
-print(ogrenciler)
+    student_grades = students[name]
+    average = int(calculate_average(student_grades))
+    students[name] = {'average': average, 'grades': student_grades}
+print(students)
 
-#2-En yüksek not ortalamasına sahip öğrenciyi bulun ve ekrana yazdırın.
+#2-Find and print the student with the highest average grade.
 
-en_yuksek_not_ortalamasi = 0
-en_yuksek_not_ortalamasi_ogrencisi = ""
+highest_average_grade = 0
+student_with_highest_average_grade = ""
 
-for isim in ogrenciler:
-    ortalama = ogrenciler[isim]['ortalama']
-    if ortalama > en_yuksek_not_ortalamasi:
-        en_yuksek_not_ortalamasi = ortalama
-        en_yuksek_not_ortalamasi_ogrencisi = isim
-print("En yuksek not ortalamasina sahip ogrenci: {}".format (en_yuksek_not_ortalamasi_ogrencisi))
+for name in students:
+    average = students[name]['average']
+    if average > highest_average_grade:
+        highest_average_grade = average
+        student_with_highest_average_grade = name
+print("Student with the highest average grade: {}".format(student_with_highest_average_grade))
 
 
 
-#3-Her öğrencinin adını soyadından ayırarak ayrı bir tuple içinde saklayın ve bunları bir listeye ekleyin.
+#3-Separate each student's name and surname and store them in a separate tuple, then add them to a list.
 
 
 list_of_tuple_names = []
-for isim in ogrenciler:
-    isim_listesi = tuple(isim.split())
-    list_of_tuple_names.append(isim_listesi)
+for name in students:
+    name_list = tuple(name.split())
+    list_of_tuple_names.append(name_list)
 print(list_of_tuple_names)
     
 
-#4-Adları alfabetik sıraya göre sıralayın ve sıralanmış listeyi ekrana yazdırın.
+#4-Sort the names in alphabetical order and print the sorted list.
 
-print(sorted(isimler))
+print(sorted(names))
     
-#5-Not ortalaması 70'in altında olan öğrencileri bir küme (set) içinde saklayın.
+#5-Store the students with an average grade below 70 in a set.
 
 set_of_students = set([])
-for isim in ogrenciler:
-    if ogrenciler[isim]['ortalama'] < 70 :
-        set_of_students.add(isim)
+for name in students:
+    if students[name]['average'] < 70 :
+        set_of_students.add(name)
     
 print(set_of_students)
