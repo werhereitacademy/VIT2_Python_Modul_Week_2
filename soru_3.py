@@ -27,64 +27,64 @@
 
 
 
-musteri_bilgileri = {}
-musteri_id = 1
+# Customer Management System
+
+# Project Description: This project involves creating a customer management system that you can use to manage your customers and perform basic operations. This system will have basic functions such as storing customer information, adding new customers, updating customer information, deleting customers, and listing customers. Here are the basic steps of the project:
+
+customer_info = {}
+customer_id = 1
 
 while True:
-    print("\n1. Yeni musteri ekleyin\n2. Musteri bilgilerini guncelleyin\n3. Musteriyi silin\n4. Tum musterileri listeleyin\n5. Cikis yapin")
+    print("\n1. Add a new customer\n2. Update customer information\n3. Delete a customer\n4. List all customers\n5. Exit")
     
-    secim = input("Lutfen bir islem secin (1-5): ")
-    if secim == "1":
-        ad = input("Ad: ")
-        soyad = input("Soyad: ")
-        e_posta = input("E-posta: ")
-        telefon = input("Telefon: ")
+    choice = input("Please select an operation (1-5): ")
+    if choice == "1":
+        name = input("Name: ")
+        surname = input("Surname: ")
+        email = input("Email: ")
+        phone = input("Phone: ")
         
-        musteri_bilgileri[musteri_id] = {
-            'ad': ad,
-            'soyad': soyad,
-            'email': e_posta,
-            'telefon': telefon
+        customer_info[customer_id] = {
+            'name': name,
+            'surname': surname,
+            'email': email,
+            'phone': phone
         }
-        musteri_id += 1
-        print(musteri_bilgileri)
+        customer_id += 1
+        print(customer_info)
         
-    elif secim == "2":
-        print(musteri_bilgileri)
-        guncellenen_musteri_id = int(input("Guncellenecek musteri kimligi: "))
-        ad = input("Ad: ")
-        soyad = input("Soyad: ")
-        e_posta = input("E-posta: ")
-        telefon = input("Telefon: ")
+    elif choice == "2":
+        print(customer_info)
+        updated_customer_id = int(input("Customer ID to update: "))
+        name = input("Name: ")
+        surname = input("Surname: ")
+        email = input("Email: ")
+        phone = input("Phone: ")
         
-        musteri_bilgileri[guncellenen_musteri_id] = {
-            'ad': ad,
-            'soyad': soyad,
-            'email': e_posta,
-            'telefon': telefon
+        customer_info[updated_customer_id] = {
+            'name': name,
+            'surname': surname,
+            'email': email,
+            'phone': phone
         }
     
-        print ("Musteri bilgileri guncellendi!")
-        print (musteri_bilgileri)
+        print ("Customer information updated!")
+        print (customer_info)
         
-    elif secim =="3":
-        print(musteri_bilgileri)
-        silinecek_musteri_id = int(input("Silinecek musteri kimligi: "))
-        del musteri_bilgileri[silinecek_musteri_id]
-        print("isleminiz basariyla gerceklesti.")
-        print(musteri_bilgileri)
+    elif choice =="3":
+        print(customer_info)
+        deleted_customer_id = int(input("Customer ID to delete: "))
+        del customer_info[deleted_customer_id]
+        print("Your operation has been successfully completed.")
+        print(customer_info)
         
-    elif secim == "4":
-        print(musteri_bilgileri)
+    elif choice == "4":
+        print(customer_info)
         
-    elif secim == "5":
-        print("Cikis yapiliyor . . .")
-        print("HOSCAKALIN")
+    elif choice == "5":
+        print("Exiting . . .")
+        print("GOODBYE")
         break
         
     else:
-        print("Gecersiz bir secim! Lutfen 1-5 arasinda secim yapiniz.")
-        
-    
-        
-    
+        print("Invalid choice! Please make a selection between 1-5.")
